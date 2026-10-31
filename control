@@ -2,7 +2,7 @@ Package: com.melux.harperdialog
 Name: MeluxHarperDialog
 Depends: mobilesubstrate
 Architecture: iphoneos-arm
-Description: Custom Welcome Dialog by Melux & Harper
+Description: Custom Welcome Dialog
 Maintainer: Melux
 Author: Melux & Harper
 Section: Tweaks
