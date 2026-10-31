@@ -1,21 +1,40 @@
 name: Build Simple Dylib
+
 on:
-push:
-branches: [ main, master ]
-pull_request:
-branches: [ main, master ]
+  push:
+    branches:
+      - main
+      - master
+
+  pull_request:
+    branches:
+      - main
+      - master
+
 jobs:
-build:
-runs-on: macos-latest
-steps:
-- name: Checkout Code
-uses: actions/checkout@v4
-- name: Compile Dylib
-run: |
-mkdir -p packages
-clang -dynamiclib main.m -o packages/MeluxHarper.dylib -framework Foundation -framework UIKit -framework WebKit -target arm64-apple-ios14.0 -isysroot $(xcrun --sdk iphoneos --show-sdk-path)
-- name: Upload Artifact
-uses: actions/upload-artifact@v4
-with:
-name: MeluxHarper-Dylib
-path: packages/*.dylib
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Compile Dylib
+        run: |
+          mkdir -p packages
+
+          clang \
+            -dynamiclib \
+            Main.m \
+            -o packages/MeluxHarper.dylib \
+            -framework Foundation \
+            -framework UIKit \
+            -framework WebKit \
+            -target arm64-apple-ios14.0 \
+            -isysroot "$(xcrun --sdk iphoneos --show-sdk-path)"
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MeluxHarper-Dylib
+          path: packages/MeluxHarper.dylib
